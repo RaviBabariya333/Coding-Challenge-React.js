@@ -1,0 +1,36 @@
+@use '../../styles/variables' as *;
+
+.search-form {
+  padding: $spacing-lg;
+  margin-bottom: $spacing-lg;
+  background: $surface-color;
+  border-radius: $border-radius;
+  box-shadow: $shadow-sm;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  &__heading {
+    margin-bottom: $spacing-xs !important;
+  }
+
+  &__subtitle {
+    margin-bottom: $spacing-md !important;
+  }
+
+  &__form {
+    display: grid;
+    gap: $spacing-md;
+
+    @media (min-width: $breakpoint-md) {
+      grid-template-columns: repeat(3, 1fr);
+
+      .search-form__submit {
+        grid-column: 1 / -1;
+      }
+    }
+  }
+
+  &__submit {
+    justify-self: start;
+    min-width: 180px;
+  }
+}

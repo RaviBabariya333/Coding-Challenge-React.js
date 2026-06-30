@@ -1,0 +1,23 @@
+@use '../../styles/variables' as *;
+
+.search-page {
+  &__results-heading {
+    margin-bottom: $spacing-md !important;
+  }
+
+  &__load-more {
+    display: flex;
+    justify-content: center;
+    margin-top: $spacing-lg;
+  }
+}
+
+.book-grid__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm;
+  padding: $spacing-xl;
+  text-align: center;
+}

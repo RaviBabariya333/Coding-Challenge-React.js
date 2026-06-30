@@ -1,0 +1,84 @@
+@use '../../styles/variables' as *;
+
+.book-details {
+  &__back {
+    margin-bottom: $spacing-md !important;
+  }
+
+  &__card {
+    padding: $spacing-lg;
+    border-radius: $border-radius;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+
+  &__layout {
+    display: grid;
+    gap: $spacing-lg;
+
+    @media (min-width: $breakpoint-md) {
+      grid-template-columns: 280px 1fr;
+      align-items: start;
+    }
+  }
+
+  &__cover {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 8px;
+    box-shadow: $shadow-md;
+  }
+
+  &__placeholder {
+    width: 100%;
+    max-width: 280px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e8eaf6, #c5cae9);
+    border-radius: 8px;
+    color: $text-secondary;
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $spacing-sm;
+  }
+
+  &__title {
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+  }
+
+  &__author {
+    margin-bottom: $spacing-sm !important;
+    font-style: italic;
+  }
+
+  &__meta,
+  &__categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__description {
+    line-height: 1.7;
+    color: $text-primary;
+    margin-top: $spacing-sm;
+  }
+
+  &__notes {
+    margin-top: $spacing-lg;
+    padding-top: $spacing-md;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+}

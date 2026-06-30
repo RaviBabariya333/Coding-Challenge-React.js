@@ -1,146 +1,133 @@
-# Take-Home Exercise: Book Explorer
+# Book Explorer
 
-## Project Overview
-The **Book Explorer** is a React-based web application that allows users to search for books using the **Google Books API**, view detailed book information, and manage a personal list of favorite books. This exercise tests your skills in modern JavaScript, React fundamentals, state management, routing, form handling, testing, and best practices in accessibility and performance optimization.
+Book Explorer is a small React app for searching books through the [Google Books API](https://developers.google.com/books), opening a detail page for any title, and saving favorites with your own notes and tags.
 
----
+I built it as a take-home project based on the [Coding Challenge React.js](https://github.com/bhargavjoshi/Coding-Challenge-React.js) brief.
 
-## Functional Requirements
+## What you can do
 
-### 1. Search Functionality
-- **Feature**: Provide a multi-field search form where users can input queries by title, author, or genre/keyword.
-- **Behavior**: 
-  - On submission, fetch a list of books from the Google Books API based on the provided inputs.
-  - Display search results in a responsive grid or list format.
-- **Display**: Each book should show:
-  - Title
-  - Author(s)
-  - Cover image (thumbnail)
-  - Brief description (if available)
+Search by title, author, or genre. You only need to fill in one field — the form will tell you if you try to search with everything empty.
 
-### 2. Book Details
-- **Feature**: Allow users to click on a book to view more detailed information.
-- **Implementation**:
-  - Use a dedicated details page accessible via a unique URL (e.g., `/book/:id`).
-  - Optionally, implement a modal overlay as an alternative.
-- **Optimization**: Use **code-splitting** (e.g., `React.lazy` and `Suspense`) to lazy load the details view for performance.
+When results come back, click a book to see more info on its own page. From there, or straight from the search results, you can add books to your favorites list. Favorites stay saved in your browser, and you can add a personal note or tags on the detail page.
 
-### 3. Favorites Management
-- **Feature**: Enable users to add and remove books from a "favorites" list.
-- **State Management**: Use a global state solution such as:
-  - **Context API**
-  - **Redux**
-  - **MobX**
-- **Display**: Provide a dedicated page (e.g., `/favorites`) to view all favorite books.
+There are three main routes:
 
-### 4. Routing and Navigation
-- **Feature**: Implement client-side routing using **React Router**.
-- **Routes**:
-  - `/`: Search page with the search form and results.
-  - `/book/:id`: Book details page for a specific book.
-  - `/favorites`: Page displaying the user's favorite books.
-- **Navigation**: Include a navigation bar or menu with links to the **Search** and **Favorites** pages.
+- `/` — search
+- `/book/:id` — book details
+- `/favorites` — saved books
 
-### 5. Form Handling
-- **Feature**: Implement a search form with multiple fields (title, author, genre) and validation.
-- **Behavior**:
-  - Ensure at least one field is filled before allowing submission.
-  - Display user-friendly error messages for invalid submissions.
-- **Optional Enhancement**: Add a form to allow users to attach notes or tags when adding a book to favorites.
+## Tech used
 
-### 6. User Interface & Experience
-- **Responsiveness**: Ensure the application is fully responsive and works on mobile, tablet, and desktop devices.
-- **Accessibility**: Use **semantic HTML** and include proper **ARIA attributes** to meet accessibility standards.
-- **Styling**: Use CSS (or a CSS-in-JS solution) with attention to maintainability and scalability.
+- React 19 + TypeScript
+- Webpack + Babel for bundling and transpilation
+- React Router for navigation
+- Redux Toolkit for favorites state
+- Material UI for the UI
+- SCSS for custom styling
+- Vitest and React Testing Library for tests
 
----
+## Getting started
 
-## Technical Requirements
+You’ll need Node.js 18 or newer and npm.
 
-### 1. Modern React & JavaScript
-- Use **functional components** and **hooks** (e.g., `useState`, `useEffect`, `useMemo`) for most of the implementation.
-- Write clean, modular, and well-documented code using **ES6+** features.
+Clone the repo, then install dependencies:
 
-### 2. React Router
-- Implement routing with at least three routes: `/`, `/book/:id`, and `/favorites`.
-- Use dynamic routing for the book details page (e.g., `/book/:id`).
-- Ensure proper navigation between pages using `Link` or `NavLink`.
+```bash
+npm install
+```
 
-### 3. Form Handling
-- Use controlled components to manage form state.
-- Implement form validation to ensure at least one search field is filled.
-- Handle form submissions and integrate with the Google Books API.
+### API key (recommended)
 
-### 4. Optional: TypeScript
-- You may choose to use **TypeScript** to add type safety to your application. (This is optional but considered a plus.)
+Google Books works without a key, but you’ll hit rate limits quickly. For a smoother experience:
 
-### 5. Build Tools & Bundlers
-- Set up the project using a modern build toolchain (e.g., **Create React App**, **Vite**, or a custom Webpack/Babel configuration).
-- Ensure that the project can be built and served locally with clear instructions.
+1. Copy `.env.example` to `.env`
+2. Add your Google Books API key as `VITE_GOOGLE_BOOKS_API_KEY`
+3. Restart the dev server
 
-### 6. Testing
-- Write **unit and integration tests** using **Jest** and **React Testing Library**.
-- Test critical components, including:
-  - Search form (validation and submission)
-  - Routing (navigation between pages)
-  - Favorites functionality (adding/removing books)
-- Aim for good test coverage to demonstrate a commitment to code quality.
+### Run the app
 
-### 7. Performance Optimization
-- Implement performance optimizations where applicable:
-  - Use **memoization** (e.g., `useMemo`, `React.memo`) to avoid unnecessary re-renders.
-  - Apply **code-splitting** for lazy loading the book details page.
-- Document any performance considerations in your README.
+```bash
+npm run dev
+```
 
-### 8. Version Control & Documentation
-- Use **Git** for version control and commit your work in a logical, well-documented manner.
-- Provide a **README.md** file that includes:
-  - A brief overview of the project.
-  - Instructions on how to set up, run, and test the application.
-  - An explanation of your approach to routing, form handling, state management, and any trade-offs made.
+Then open [http://localhost:3000](http://localhost:3000).
 
----
+### Other commands
 
-## How to Use the Google Books API
+```bash
+npm run build    # production build
+npm run preview  # preview the production build locally
+npm test         # run tests once
+npm run test:watch  # run tests in watch mode
+npm run lint     # run oxlint
+```
 
-### Overview
-The **Google Books API** allows you to search for books and retrieve their details. In this project, it will be used to power the search functionality by fetching book data based on user queries.
+## Project layout
 
-### API Endpoint
-- **Base URL**: `https://www.googleapis.com/books/v1/volumes?q={searchQuery}`
-- **Usage**: Replace `{searchQuery}` with the user's input. For multi-field searches, construct the query accordingly (e.g., `?q=intitle:JavaScript+inauthor:Smith`).
+```
+src/
+├── api/         # API calls to Google Books
+├── utils/       # Shared helpers (API endpoints, etc.)
+├── components/  # Reusable UI pieces
+├── pages/       # Search, details, and favorites screens
+├── store/       # Redux store and favorites logic
+├── styles/      # Global SCSS
+├── theme/       # MUI theme setup
+├── types/       # TypeScript interfaces
+└── test/        # Test setup and routing tests
+```
 
-### Key Parameters
-- **`q`**: Required search query. Supports advanced search terms like `intitle:`, `inauthor:`, etc.
-  - Examples: `?q=react`, `?q=intitle:JavaScript+inauthor:John`
-- **`maxResults`**: Optional, limits the number of results (default: 10, max: 40).
-  - Example: `?q=javascript&maxResults=20`
-- **`startIndex`**: Optional, for pagination (starting index of results).
-  - Example: `?q=javascript&startIndex=10`
+## How it’s put together
 
-### Response Structure
-The API returns a JSON object with a list of book items under the `items` key. Each item includes:
-- **`id`**: Unique book identifier.
-- **`volumeInfo`**: Book details, including:
-  - **`title`**: Book title.
-  - **`authors`**: Array of authors.
-  - **`description`**: Brief summary (optional).
-  - **`imageLinks`**: Object with image URLs (e.g., `thumbnail`).
+**Routing** — React Router handles page changes. The book details page is lazy-loaded so the first load stays lighter.
 
-**Example Response**:
-```json
-{
-  "items": [
-    {
-      "id": "xyz789",
-      "volumeInfo": {
-        "title": "JavaScript Basics",
-        "authors": ["John Smith"],
-        "description": "An introduction to JavaScript programming.",
-        "imageLinks": {
-          "thumbnail": "https://books.google.com/books/content?id=xyz789&printsec=frontcover&img=1&zoom=1&source=gbs_api"
-        }
-      }
-    }
-  ]
-}
+**State** — Favorites live in Redux Toolkit and sync to `localStorage`. Components use a `useFavorites` hook so the API stays simple.
+
+**Search** — The form uses MUI field validation. Queries are sent to Google Books using `intitle:`, `inauthor:`, and `subject:` filters depending on what you filled in.
+
+**Styling** — MUI covers most of the UI. SCSS handles layout and the extra polish on top.
+
+**Performance** — Memoized list items, lazy-loaded details route, and a “Load more” button for pagination instead of loading everything at once.
+
+## Decisions / trade-offs
+
+- I used **Redux Toolkit** for favorites because the requirement asked for a global state solution, and it keeps updates predictable as the app grows.
+- Favorites are stored in **`localStorage`** (not a backend) because it’s simple and works offline, but it’s limited to the current browser/device.
+- The Google Books requests go through a **dev-server proxy** (`/api/books`) to avoid CORS headaches in development.
+- I kept tests focused on **user flows** (routing, form validation, favorites) instead of trying to unit-test everything.
+
+## Webpack / Babel configuration
+
+The app is bundled with **Webpack 5** and transpiled with **Babel** (not Vite for dev/build).
+
+| File | Purpose |
+|------|---------|
+| `webpack.config.cjs` | Entry, loaders, dev server, API proxy, env injection |
+| `babel.config.cjs` | `@babel/preset-env`, `@babel/preset-react`, `@babel/preset-typescript` |
+
+**Loaders**
+- `babel-loader` — TypeScript + JSX → JavaScript
+- `sass-loader` / `css-loader` / `style-loader` — SCSS and CSS
+
+**Dev server** (`npm run dev`)
+- Host: `127.0.0.1:3000`
+- Proxies `/api/books` → Google Books API (same as before)
+- `historyApiFallback` for React Router
+
+**Environment variables** — `.env` values are injected via `webpack.DefinePlugin` so existing `import.meta.env.VITE_*` usage still works.
+
+**Tests** — Vitest still uses `vite.config.ts` only for the test runner.
+
+## API
+
+The app talks to Google Books like this:
+
+```
+GET https://www.googleapis.com/books/v1/volumes?q={query}&maxResults=20&startIndex=0
+```
+
+In development, requests go through a Webpack dev-server proxy at `/api/books` to avoid CORS issues.
+
+## License
+
+MIT
